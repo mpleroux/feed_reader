@@ -225,3 +225,6 @@ __marimo__/
 # Claude docs (don't commit)
 CLAUDE.md
 PLAN.md
+
+# Tailwind compiled stylesheet
+static/css/tailwind.css
