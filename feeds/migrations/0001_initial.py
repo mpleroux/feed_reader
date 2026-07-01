@@ -5,17 +5,23 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
             name='Folder',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('name', models.CharField(max_length=100, unique=True)),
             ],
             options={
@@ -25,14 +31,31 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Feed',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('title', models.CharField(max_length=255)),
                 ('site_url', models.URLField(blank=True, max_length=500)),
                 ('feed_url', models.URLField(max_length=500, unique=True)),
                 ('etag', models.CharField(blank=True, max_length=255)),
                 ('last_modified', models.CharField(blank=True, max_length=255)),
                 ('last_fetched', models.DateTimeField(blank=True, null=True)),
-                ('folder', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='feeds', to='feeds.folder')),
+                (
+                    'folder',
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name='feeds',
+                        to='feeds.folder',
+                    ),
+                ),
             ],
             options={
                 'ordering': ['title'],
@@ -41,7 +64,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Article',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                (
+                    'id',
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name='ID',
+                    ),
+                ),
                 ('guid', models.CharField(max_length=500)),
                 ('title', models.CharField(max_length=500)),
                 ('author', models.CharField(blank=True, max_length=255)),
@@ -50,11 +81,22 @@ class Migration(migrations.Migration):
                 ('content', models.TextField(blank=True)),
                 ('excerpt', models.TextField(blank=True)),
                 ('is_read', models.BooleanField(default=False)),
-                ('feed', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='articles', to='feeds.feed')),
+                (
+                    'feed',
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name='articles',
+                        to='feeds.feed',
+                    ),
+                ),
             ],
             options={
                 'ordering': ['-published'],
-                'constraints': [models.UniqueConstraint(fields=('feed', 'guid'), name='unique_guid_per_feed')],
+                'constraints': [
+                    models.UniqueConstraint(
+                        fields=('feed', 'guid'), name='unique_guid_per_feed'
+                    )
+                ],
             },
         ),
     ]
