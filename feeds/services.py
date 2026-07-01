@@ -2,6 +2,7 @@ import calendar
 from datetime import UTC
 
 import feedparser
+import nh3
 from django.utils import timezone
 
 from .models import Article, Feed
@@ -13,6 +14,13 @@ def _parse_published(entry) -> timezone.datetime | None:
         return None
     timestamp = calendar.timegm(entry.published_parsed)
     return timezone.datetime.fromtimestamp(timestamp, tz=UTC)
+
+
+def _make_excerpt(html: str, length: int = 300) -> str:
+    text = nh3.clean(html, tags=set())
+    if len(text) <= length:
+        return text
+    return text[:length].rsplit(' ', 1)[0] + '…'
 
 
 def fetch_feed(feed: Feed) -> int:
@@ -38,8 +46,8 @@ def fetch_feed(feed: Feed) -> int:
                 'author': entry.get('author', ''),
                 'link': entry.link,
                 'published': _parse_published(entry),
-                'content': entry.get('summary', ''),
-                'excerpt': entry.get('summary', '')[:300],
+                'content': nh3.clean(entry.get('summary', '')),
+                'excerpt': _make_excerpt(entry.get('summary', '')),
             },
         )
         if created:
