@@ -5,6 +5,8 @@ requires-python = ">=3.13"
 dependencies = [
     "django>=6.0.6",
     "django-tailwind-cli>=4.6.2",
+    "feedparser>=6.0.12",
+    "nh3>=0.3.6",
 ]
 
 [dependency-groups]
