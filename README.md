@@ -33,6 +33,22 @@ I will be implementing a deliberately Python-centric stack — no separate JS fr
 
 ## Run Locally
 
+Prerequisite: [uv](https://docs.astral.sh/uv/) installed — it manages the Python version, virtual environment, and dependencies.
+
+```bash
+uv sync                                      # create the venv and install dependencies
+uv run python manage.py migrate              # create the local SQLite database
+uv run python manage.py tailwind runserver   # build CSS and start the dev server
+```
+
+Then open `http://127.0.0.1:8000`.
+
+Feeds and articles are managed through the Django admin. Create an account, then sign in at `http://127.0.0.1:8000/admin/`:
+
+```bash
+uv run python manage.py createsuperuser
+```
+
 ## Architecture
 
 ## Design inspiration
