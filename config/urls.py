@@ -17,13 +17,11 @@ Including another Urlconf
 
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path
-
-from feeds import views
+from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home, name='home'),
+    path('', include('feeds.urls')),
 ]
 
 if settings.DEBUG:
