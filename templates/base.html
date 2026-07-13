@@ -6,7 +6,34 @@
     <title>{% block title %}Feed Reader{% endblock %}</title>
     {% tailwind_css %}
 </head>
-<body>
-    {% block content %}{% endblock %}
+<body class="flex h-screen overflow-hidden">
+    <aside class="w-64 shrink-0 overflow-y-auto border-r border-gray-200">
+        <nav class="p-4">
+            {% for folder in sidebar_folders %}
+                <div class="mb-4">
+                    <h2 class="text-sm font-semibold text-gray-500">{{ folder.name }}</h2>
+                    <ul>
+                        {% for feed in folder.feeds.all %}
+                            <li>{{ feed.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
+
+            {% if sidebar_unfiled_feeds %}
+                <div class="mb-4">
+                    <h2 class="text-sm font-semibold text-gray-500">Uncategorized</h2>
+                    <ul>
+                        {% for feed in sidebar_unfiled_feeds %}
+                            <li>{{ feed.title }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
+        </nav>
+    </aside>
+    <main class="grow overflow-y-auto">
+        {% block content %}{% endblock %}
+    </main>
 </body>
 </html>
