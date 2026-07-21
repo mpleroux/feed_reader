@@ -14,7 +14,7 @@
                     <h2 class="text-sm font-semibold text-gray-500">{{ folder.name }}</h2>
                     <ul>
                         {% for feed in folder.feeds.all %}
-                            <li>{{ feed.title }}</li>
+                            <li><a href="{% url 'feeds:feed_detail' feed.id %}"></a></li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -25,7 +25,7 @@
                     <h2 class="text-sm font-semibold text-gray-500">Uncategorized</h2>
                     <ul>
                         {% for feed in sidebar_unfiled_feeds %}
-                            <li>{{ feed.title }}</li>
+                            <li><a href="{% url 'feeds:feed_detail' feed.id %}">{{ feed.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>

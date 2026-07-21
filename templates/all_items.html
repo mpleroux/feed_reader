@@ -1,16 +1,5 @@
 {% extends "base.html" %}
 {% block title %}All Items{% endblock %}
 {% block content %}
-    <div class="divide-y divide-gray-200">
-        {% for article in articles %}
-            <article class="p-4">
-                <div class="flex items-baseline justify-between">
-                    <span class="text-sm text-gray-500">{{ article.feed.title }}</span>
-                    <span class="text-sm text-gray-500">{{ article.published }}</span>
-                </div>
-                <h2 class="text-lg font-semibold">{{ article.title }}</h2>
-                <p class="text-gray-700">{{ article.excerpt }}</p>
-            </article>
-        {% endfor %}
-    </div>
+    {% include 'partials/article_list.html' with show_feed=True %}
 {% endblock %}

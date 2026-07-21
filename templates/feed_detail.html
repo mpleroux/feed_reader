@@ -1,0 +1,5 @@
+{% extends "base.html" %}
+{% block title %}{{ feed.title }}{% endblock %}
+{% block content %}
+    {% include "partials/article_list.html" with show_feed=False %}
+{% endblock %}
