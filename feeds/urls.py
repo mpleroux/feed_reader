@@ -5,5 +5,5 @@ from feeds import views
 app_name = 'feeds'
 
 urlpatterns = [
-    path('', views.home, name='home'),
+    path('', views.all_items, name='all_items'),
 ]
