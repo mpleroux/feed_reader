@@ -1,14 +1,26 @@
-<div class="divide-y divide-gray-200">
-    {% for article in articles %}
-        <article class="p-4">
-            <div class="flex items-baseline justify-between">
-                {% if show_feed %}
+{% load humanize %}
+{% regroup articles by published_day as article_days %}
+{% for day in article_days %}
+<section>
+    <h2 class="bg-gray-50 px-4 py-2 text-sm font-semibold text-gray-600">
+        {% if day.grouper %}{{ day.grouper|naturalday|title }}{% else %}Undated{% endif %}
+    </h2>
+    <div class="divide-y divide-gray-200">
+        {% for article in day.list %}
+        <article class="flex gap-2 p-4">
+            <img class="w-4 h-4 shrink-0 mt-1" src="{{ article.feed.favicon_url }}" alt="">
+            <div class="grow shrink basis-0 min-w-0">
+                <div class="flex items-baseline gap-2">
+                    {% if show_feed %}
                     <span class="text-sm text-gray-500">{{ article.feed.title }}</span>
-                {% endif %}
-                <span class="text-sm text-gray-500">{{ article.published }}</span>
+                    {% endif %}
+                    <span class="text-sm text-gray-500">{{ article.published|date:"g:i A"|default:"—" }}</span>
+                </div>
+                <h3 class="text-lg font-semibold">{{ article.title }}</h3>
+                <p class="text-gray-700">{{ article.excerpt }}</p>
             </div>
-            <h2 class="text-lg font-semibold">{{ article.title }}</h2>
-            <p class="text-gray-700">{{ article.excerpt }}</p>
         </article>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
+</section>
+{% endfor %}

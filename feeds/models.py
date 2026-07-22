@@ -1,4 +1,7 @@
+from urllib.parse import urlparse
+
 from django.db import models
+from django.utils import timezone
 
 
 class Folder(models.Model):
@@ -33,6 +36,11 @@ class Feed(models.Model):
     def __str__(self):
         return self.title
 
+    @property
+    def favicon_url(self):
+        domain = urlparse(self.site_url).netloc or urlparse(self.feed_url).netloc
+        return f'https://icons.duckduckgo.com/ip3/{domain}.ico'
+
 
 class Article(models.Model):
     feed = models.ForeignKey(
@@ -60,3 +68,13 @@ class Article(models.Model):
 
     def __str__(self):
         return self.title
+
+    @property
+    def published_day(self):
+        # Local-timezone midnight of the published date, so articles from the
+        # same local day share one grouper value (and naturalday sees the tzinfo)
+        if self.published is None:
+            return None
+        return timezone.localtime(self.published).replace(
+            hour=0, minute=0, second=0, microsecond=0
+        )
