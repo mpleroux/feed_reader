@@ -66,4 +66,5 @@ Stretch goals: full-text search, cached favicons, OPML import/export, and multi-
 
 ## Screenshot
 
-<img src="./docs/screenshots/screenshot.png" width="400" alt="">
+<img src="./docs/screenshots/screenshot1.png" width="400" alt="All Feeds view">
+<img src="./docs/screenshots/screenshot2.png" width="400" alt="Article view">
