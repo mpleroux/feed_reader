@@ -64,7 +64,7 @@ were also influential.
 
 Stretch goals: full-text search, cached favicons, OPML import/export, and multi-user accounts.
 
-## Screenshot
+## Screenshots
 
 <img src="./docs/screenshots/screenshot1.png" width="400" alt="All Feeds view">
 <img src="./docs/screenshots/screenshot2.png" width="400" alt="Article view">
