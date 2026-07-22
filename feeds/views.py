@@ -13,3 +13,8 @@ def feed_detail(request, feed_id):
     # noinspection PyUnresolvedReferences
     articles = feed.articles.all()
     return render(request, 'feed_detail.html', {'feed': feed, 'articles': articles})
+
+
+def article_detail(request, article_id):
+    article = get_object_or_404(Article.objects.select_related('feed'), pk=article_id)
+    return render(request, 'article_detail.html', {'article': article})

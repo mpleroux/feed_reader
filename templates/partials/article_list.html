@@ -16,7 +16,9 @@
                     {% endif %}
                     <span class="text-sm text-gray-500">{{ article.published|date:"g:i A"|default:"—" }}</span>
                 </div>
-                <h3 class="text-lg font-semibold">{{ article.title }}</h3>
+                <h3 class="text-lg font-semibold">
+                    <a href="{% url 'feeds:article_detail' article.id %}">{{ article.title }}</a>
+                </h3>
                 <p class="text-gray-700">{{ article.excerpt }}</p>
             </div>
         </article>

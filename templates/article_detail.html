@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{ article.title }}{% endblock %}
+{% block content %}
+<article class="mx-auto max-w-3xl p-6">
+    <div class="mb-4 flex items-baseline justify-between">
+        <span class="text-sm text-gray-500">{{ article.feed.title }}</span>
+        <a href="{% url 'feeds:all_items' %}" class="text-sm text-gray-500 underline">Close</a>
+    </div>
+
+    <h1 class="text-3xl font-bold">{{ article.title }}</h1>
+
+    <p class="mt-2 text-sm text-gray-500">
+        {% if article.author %}{{ article.author }} · {% endif %}
+        {{ article.published|date:"F j, Y, g:i A"|default:"Undated" }}
+    </p>
+
+    <div class="prose mt-6 max-w-none">
+        {{ article.content|safe }}
+    </div>
+
+    <p class="mt-6">
+        <a href="{{ article.link }}" class="text-blue-600 underline"
+           target="_blank" rel="noopener noreferrer">Read the original</a>
+    </p>
+</article>
+{% endblock %}
