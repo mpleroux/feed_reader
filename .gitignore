@@ -228,3 +228,6 @@ PLAN.md
 
 # Tailwind compiled stylesheet
 static/css/tailwind.css
+
+# collectstatic
+staticfiles/
