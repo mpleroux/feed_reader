@@ -74,6 +74,8 @@ uv run python manage.py createsuperuser
 
 ## Architecture
 
+### ER diagram
+
 ```mermaid
 erDiagram
     Folder ||--o{ Feed: contains Feed ||--o{ Article : has
@@ -95,6 +97,8 @@ erDiagram
     }
 ```
 
+### Flow diagram
+
 ```mermaid
 flowchart LR
     A["fetch_feeds / seed_demo"] --> B["fetch_feed(feed)"]
@@ -103,6 +107,22 @@ flowchart LR
     C -->|" new entries "| E["nh3 sanitize<br/>+ build excerpt"]
     E --> F["get_or_create<br/>(dedupe by guid)"]
     F --> G[("SQLite")]
+```
+
+### Fetch pipeline
+
+```mermaid
+flowchart TD
+    Browser(["Browser"]) -->|" HTTP request "| RootURLs["config/urls.py"]
+    RootURLs -->|" include('feeds.urls') "| AppURLs["feeds/urls.py"]
+    AppURLs --> View["View<br/>all_items · feed_detail · article_detail"]
+    View -->|" ORM query "| Models["Models<br/>Folder · Feed · Article"]
+    Models --> DB[("SQLite")]
+    View -->|" render(template, context) "| Template["Page template<br/>(extends base.html)"]
+    ContextProc["context processor<br/>sidebar_feeds()"] -.->|" sidebar data,<br/>every request "| Template
+    Template -->|" {% include %} "| Partial["partials/article_list.html<br/>(list pages)"]
+    Template --> Response(["Rendered HTML"])
+    Response --> Browser
 ```
 
 ## Design inspiration
