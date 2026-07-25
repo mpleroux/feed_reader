@@ -2,8 +2,8 @@
 
 A single-user RSS/Atom feed reader built with Python and Django. Work-in-progress.
 
-Live demo: [feed-reader-9jin.onrender.com/](https://feed-reader-9jin.onrender.com/) _(read-only; first load may be
-slow — free-tier cold start)_
+Live demo: [feed-reader-9jin.onrender.com](https://feed-reader-9jin.onrender.com/) _(read-only; first load may be slow —
+free-tier cold start)_
 
 ## Features
 
