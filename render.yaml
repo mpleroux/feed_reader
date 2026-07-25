@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: feed-reader
+    runtime: python
+    plan: free
+    buildCommand: >-
+      uv sync --frozen &&
+      uv run python manage.py tailwind build &&
+      uv run python manage.py collectstatic --no-input &&
+      uv run python manage.py migrate &&
+      uv run python manage.py seed_demo
+    startCommand: uv run gunicorn config.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
